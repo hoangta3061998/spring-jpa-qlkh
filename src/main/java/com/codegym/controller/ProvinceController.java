@@ -22,7 +22,7 @@ public class ProvinceController {
     public ModelAndView viewProvince(@PathVariable("id") Long id){
         Province province = provinceService.findById(id);
         if(province == null){
-            return new ModelAndView("/error.404");
+            return new ModelAndView("/province/error.404");
         }
 
         Iterable<Customer> customers = customerService.findAllByProvince(province);
