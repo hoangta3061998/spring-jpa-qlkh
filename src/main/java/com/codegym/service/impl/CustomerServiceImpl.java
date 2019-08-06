@@ -7,6 +7,7 @@ import com.codegym.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 
 public class CustomerServiceImpl implements CustomerService {
@@ -42,5 +43,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Page<Customer> findAllByFirstNameContaining(String firstname, Pageable pageable) {
         return customerRepository.findAllByFirstNameContaining(firstname,pageable);
+    }
+
+    @Override
+    public Page<Customer> findByOrderByFirstNameAsc(Pageable pageable) {
+        return customerRepository.findByOrderByFirstNameAsc(pageable);
     }
 }

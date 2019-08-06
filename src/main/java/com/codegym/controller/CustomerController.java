@@ -6,12 +6,14 @@ import com.codegym.service.CustomerService;
 import com.codegym.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -98,4 +100,24 @@ public class CustomerController {
         customerService.remove(customer.getId());
         return "redirect:customers";
     }
+    @GetMapping("/customer-sorted")
+    public ModelAndView findAndSort(@PageableDefault(sort = {"firstName"},direction = Sort.Direction.DESC) Pageable pageable,@RequestParam("sorttype") String sorttype){
+        Page<Customer> customers;
+        int select;
+        if(sorttype.equals("firstNameDesc")){
+            customers = customerService.findAll(pageable);
+            select = 1;
+        }else {
+            Sort sort = new Sort(Sort.Direction.ASC,"firstName");
+            customers = customerService.findAll(new PageRequest(0,20,sort));
+            select = 2;
+        }
+
+        ModelAndView modelAndView = new ModelAndView("/customer/list");
+        modelAndView.addObject("customers",customers);
+        modelAndView.addObject("select",select);
+        return modelAndView;
+    }
+
+
 }

@@ -11,7 +11,15 @@
     Search by first name:
     <input name="s" type="text"/>
     <input type="submit" value="Search"/>
-</form><br/>
+</form>
+<br/>
+<span>Sort:</span>
+<form id="sort" action="/customer-sorted" method="get">
+    <select name="sorttype" onchange="this.form.submit()" >
+        <option value="firstNameDesc" th:selected="${select} ==1" >FirstNameDesc</option>
+        <option value="firstNameAsc" th:selected="${select} == 2">FirstNameAsc</option>
+    </select>
+</form>
 <table border="1">
     <tr>
         <th>First name</th>
