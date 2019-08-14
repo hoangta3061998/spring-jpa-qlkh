@@ -16,15 +16,15 @@
     <input th:type="hidden" name="id" th:field="*{id}">
     <table>
         <tr>
-            <td>First name:</td>
+            <td th:text="#{firstname}"></td>
             <td><input type="text" th:field="*{firstName}"/></td>
         </tr>
         <tr>
-            <td>Last name:</td>
+            <td th:text="#{lastname}"></td>
             <td><input type="text" th:field="*{lastName}"/></td>
         </tr>
         <tr>
-            <td>Province:</td>
+            <td th:text="#{province}"></td>
             <td>
                 <select name="province">
                     <option th:each="p : ${provinces}"
